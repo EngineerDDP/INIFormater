@@ -37,6 +37,11 @@ func (self *Document) Get(key string) *Section{
 	}
 }
 
+func (self *Document) TryGet(key string) (obj *Section, ok bool){
+	obj, ok = self.sections[key]
+	return
+}
+
 func (self *Document) Add(key string, val *Section) {
 	if _, ok := self.sections[key]; !ok {
 		self.sections[key] = val
@@ -46,6 +51,14 @@ func (self *Document) Add(key string, val *Section) {
 
 func (self *Document) AddContent(content INIDocumentComponent){
 	self.doc_content = append(self.doc_content, content)
+}
+
+func (s *Document) GetSections() []*Section{
+	res := make([]*Section, 0, len(s.sections))
+	for _, v := range s.sections{
+		res = append(res, v)
+	}
+	return res
 }
 
 func (self *Document) SerializeToString() string {

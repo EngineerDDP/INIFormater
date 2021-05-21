@@ -104,7 +104,11 @@ func (self *Attribute) Remove(val string) {
 			res += str + ","
 		} // else pass
 	}
-	self.val = res[:len(res)-1]
+	if len(res) > 0{
+		self.val = res[:len(res)-1]
+	} else {
+		self.val = ""
+	}
 }
 
 func (self *Attribute) SerializeToString() string{

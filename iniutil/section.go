@@ -49,6 +49,11 @@ func (self *Section) Get(key string) *Attribute{
 	}
 }
 
+func (self *Section) TryGet(key string) (obj *Attribute, ok bool){
+	obj, ok = self.attributes[key]
+	return
+}
+
 func (self *Section) Add(att *Attribute) bool{
 	if _, ok := self.attributes[att.GetName()]; !ok {
 		self.attributes[att.GetName()] = att
@@ -80,6 +85,14 @@ func (self *Section) Remove(key string) bool{
 		return true
 	}
 	return false
+}
+
+func (self *Section) GetAttributes() []*Attribute{
+	res := make([]*Attribute, 0, len(self.attributes))
+	for _, v := range self.attributes{
+		res = append(res, v)
+	}
+	return res
 }
 
 func (self *Section) SerializeToString() string{
